@@ -13,7 +13,7 @@ A jatekban 12 gomb van. Az `env.step()` fuggveny egy 12 jegyu binaris szamot (st
 | Gomb | decimalis | mit csinal |
 |---|---|---|
 | MODE  | 512  |   |
-| START | 256  |   |
+| START | 256  | vedekezes <sup>1</sup> |
 | UP    | 128  |   |
 | DOWN  | 64   |   |
 | LEFT  | 32   |   |
@@ -25,4 +25,5 @@ A jatekban 12 gomb van. Az `env.step()` fuggveny egy 12 jegyu binaris szamot (st
 | X     | 2    | ?? |
 | Z     | 1    | ?? |
 
-Egyszerre persze tobb gombot is lenyomva tarthatsz. Pl. a `f"{128|2048:012b}"` vagyis `"100010000000"` string ugralas kozben fog rugdosni.
+Egyszerre persze tobb gombot is lenyomva tarthatsz. Pl. a `f"{128|2048:012b}"` vagyis `"100010000000"` string ugralas kozben fog rugdosni.  
+1: A `START` gombot valamiert szuri a kornyezet. Hogy hasznalni lehessen az `env` valtozo `use_restricted_actions` attributumanak erteket `retro.Actions.ALL`-ra kell allitani.
