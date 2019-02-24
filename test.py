@@ -2,7 +2,7 @@ import retro
 import numpy as np
 
 env_name = 'MortalKombatII-Genesis'
-env = retro.make(env_name)
+env = retro.make(env_name, use_restricted_actions=retro.Actions.ALL)
 
 state = env.reset()
 while(True):
