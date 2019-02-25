@@ -2,6 +2,7 @@ import retro
 import numpy as np
 
 from pathlib import Path
+from time import sleep
 
 
 env_name = 'MortalKombatII-Genesis'
@@ -13,8 +14,12 @@ env = retro.make(env_name,
     state=str(state_path))
 
 state = env.reset()
-while(True):
+while True:
     for i in range(100000):
-        state, reward, done, info = env.step('0')
+        _ = env.step(f'{0:012b}')
         env.render()
+        sleep(1/45)
+        _ = env.step(f'{1024:012b}')
+        env.render()
+        sleep(1/45)
     env.reset()
