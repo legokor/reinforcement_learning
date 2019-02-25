@@ -1,8 +1,16 @@
 import retro
 import numpy as np
 
+from pathlib import Path
+
+
 env_name = 'MortalKombatII-Genesis'
-env = retro.make(env_name, use_restricted_actions=retro.Actions.ALL)
+state_name = 'AFK.SubZeroVsJax'
+state_path = Path(f'states/{state_name}.state').resolve()
+
+env = retro.make(env_name,
+    use_restricted_actions=retro.Actions.ALL,
+    state=str(state_path))
 
 state = env.reset()
 while(True):
