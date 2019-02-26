@@ -10,6 +10,6 @@ while(True):
         if i%2==0:
             state, reward, done, info = env.step('1024')
         else:
-            state, reward, done, info = env.step('256')
+            state, reward, done, info = env.step('2048')
         env.render()
 env.reset()
