@@ -17,7 +17,8 @@ env = retro.make(env_name,
     players=2)
 
 pushed_keys = list('000000000000')
-keymap = {key.UP: 4, key.DOWN: 5, key.LEFT: 6, key.RIGHT: 7}
+keymap = {key.UP: 4, key.DOWN: 5, key.LEFT: 6, key.RIGHT: 7,
+          key.W: 4, key.S: 5, key.A: 6, key.D: 7, key.Q: 3, key.LCTRL: 1, key.LSHIFT: 8, key.E: 2}
 
 def key_press(pressed_key, modifier):
     global pushed_keys
