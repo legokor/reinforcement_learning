@@ -10,7 +10,7 @@ $ python3 -m retro.import Mortal\ Kombat\ II\ \(World\).md
 
 # Control
 The controller has 12 buttons.
-![Controller]()
+![Controller](https://cdn11.bigcommerce.com/s-ymgqt/images/stencil/original/products/44395/38244/6-button-turbo__64130.1503433948.jpg?c=2&imbypass=on)
 
 The `env.step()` function's input is a 12 digit binary number as a String.
 Each bit represents a state of an action button. Mapped below:
