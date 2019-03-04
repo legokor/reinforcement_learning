@@ -8,7 +8,7 @@ from time import sleep
 
 env_name = 'MortalKombatII-Genesis'
 state_name = 'AFK.SubZeroVsJax'
-state_path = Path("states/AFK.SubZeroVsJax.state").resolve()
+state_path = Path("../states/AFK.SubZeroVsJax.state").resolve()
 
 
 env = retro.make(env_name,
