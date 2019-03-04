@@ -16,8 +16,8 @@ env = retro.make(env_name,
     state=str(state_path),
     players=2)
 
-pushed_keys = list('000000000000')
-keymap = {key.UP: 4, key.DOWN: 5, key.LEFT: 6, key.RIGHT: 7,
+pushed_keys = list('000000000000'+'000000000000')
+keymap = {key.UP: 12+4, key.DOWN: 12+5, key.LEFT: 12+6, key.RIGHT: 12+7, key.RSHIFT: 12+8, key.RCTRL: 12+1, key.MINUS: 12+3, 
           key.W: 4, key.S: 5, key.A: 6, key.D: 7, key.Q: 3, key.LCTRL: 1, key.LSHIFT: 8, key.E: 2}
 
 def key_press(pressed_key, modifier):
