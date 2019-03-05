@@ -39,7 +39,7 @@ env.viewer.window.on_key_release = key_release
 
 while True:
     for i in range(100000):
-        _ = env.step("".join(pushed_keys) + '000000000000')
+        _ = env.step("".join(pushed_keys))
         env.render()
         sleep(0.001)
     env.reset()
