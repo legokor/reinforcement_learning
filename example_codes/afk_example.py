@@ -17,10 +17,10 @@ env = retro.make(env_name,
 state = env.reset()
 while True:
     for i in range(100000):
-        _ = env.step(f'{128|2048:012b}')
+        _ = env.step(f'{128|2048:012b}'+f'{128|2048:012b}') #Player1 Action + Player2 Action
         env.render()
         sleep(1/45)
-        _ = env.step(f'{128:012b}')
+        _ = env.step(f'{128:012b}'+f'{128:012b}') #Player1 Action + Player2 Action
         env.render()
         sleep(1/45)
     env.reset()
