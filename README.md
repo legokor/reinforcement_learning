@@ -16,7 +16,7 @@ The controller has 12 buttons.
 
 ##env.step()
 
-The `env.step()` function's input is a 12<sup>1<sup> digit binary number as a String.
+The `env.step()` function's input is a 12<sup>1</sup> digit binary number as a String.
 Each bit represents a state of an action button. Mapped below:
 
 | Button | Decimal | Action |
