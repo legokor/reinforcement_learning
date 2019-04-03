@@ -27,14 +27,23 @@ class RandomAgent(object):
         return np.asarray(lst)
 
 class Daredevil(object):
+
+    dna = []
+
     def __init__(self, action_space):
         self.action_space = action_space
+        with open("dna0.txt") as file:
+            rawdna = file.readlines()
+            self.dna = [x.strip() for x in rawdna] 
     
     #return a move
     def act(self, observation, reward, done, time):
-        #TODO read this array from a file, from 'time'-th row
-        move = np.array([0,0,0,0,0,0,0,0,0,0,0,0])
-        return move
+        gene = self.dna[time%len(self.dna)]
+        move = []
+        for x in range(12):
+            y = ord(gene[x])-ord('0')
+            move.append(y)
+        return np.asarray(move)
 
 state = env.reset()
 agent1 = Daredevil(env.action_space)
