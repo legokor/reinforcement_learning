@@ -7,11 +7,9 @@ import imutils
 from pathlib import Path
 from time import sleep
 
-
 env_name = 'MortalKombatII-Genesis'
 state_name = 'AFK.SubZeroVsJax'
 state_path = Path("../states/AFK.SubZeroVsJax.state").resolve()
-
 
 env = retro.make(env_name,
     use_restricted_actions=retro.Actions.ALL,
@@ -73,13 +71,11 @@ while not done:
     s_ = [reward, done, info]
 
     frame = cv2.cvtColor(state, cv2.COLOR_BGR2GRAY)
-    frame = frame[24:, :]
-    frame = imutils.resize(frame, width=160)
+    frame = frame[24:, :] # Drop upper part of frame  (heath bar, etc.)
+    frame = imutils.resize(frame, width=160) # Scale frane
     cv2.imshow("Mortal Kombat II", frame) # Show modified image
 
-    input = frame / 255
-    print(input)
-    print(input.shape)
+    input = frame / 255 # Normalization
 
     counter += 1
     if s != s_:
