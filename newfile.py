@@ -8,8 +8,8 @@ state = env.reset()
 while(True):
     for i in range(100000):
         if i%2==0:
-            state, reward, done, info = env.step('1024')
-        else:
             state, reward, done, info = env.step('2048')
+        else:
+            state, reward, done, info = env.step('1024')
         env.render()
 env.reset()
