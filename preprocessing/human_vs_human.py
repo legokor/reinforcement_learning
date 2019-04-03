@@ -52,8 +52,6 @@ def key_release(pressed_key, modifier):
             pushed_keys[position] = "0"
 
 state = env.reset()
-rgb = cv2.cvtColor(state, cv2.COLOR_BGR2RGB)
-cv2.imshow("Mortal Kombat II", rgb)
 
 print(state.shape)
 env.render()
@@ -63,25 +61,27 @@ env.viewer.window.on_key_release = key_release
 counter = 0
 done = False
 
-s = []
+s = [] # Save previous state(reward, health, etc, NO IMAGE) for debugging
 
 while not done:
     state, reward, done, info = env.step("".join(pushed_keys))
     env.render() # Show original image
-    s_ = [reward, done, info]
+    s_ = [reward, done, info] # New state
 
     frame = cv2.cvtColor(state, cv2.COLOR_BGR2GRAY)
     frame = frame[24:, :] # Drop upper part of frame  (heath bar, etc.)
     frame = imutils.resize(frame, width=160) # Scale frane
     cv2.imshow("Mortal Kombat II", frame) # Show modified image
 
-    input = frame / 255 # Normalization
+    input = frame / 255 # Normalize input for NN
 
     counter += 1
+    # If state change print to see what happened
     if s != s_:
         print(counter, s_)
         s = s_
 
+    #Wait for 10ms, if 'q' pressed exit
     key = cv2.waitKey(10) & 0xFF
     if key == ord("q"):
         break
