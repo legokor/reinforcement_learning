@@ -61,7 +61,14 @@ while True:
         #ob, reward, done, _ = env.step( action1 + action2 )
         x = np.concatenate((action1,action2))
         #print(x)
-        ob, reward, done, _ = env.step(x)
+
+        #ob: [224,300,3] array of pixels
+        #reward: 2 element array of float -> [0] is the points that p1 hit to p2 in the actual round, [1] is always 0
+        #done becomes true when someone collects 2 wins
+        ob, reward, done, asd = env.step(x)
+        print(asd)
+        if reward[0]!=0 or reward[1]!=0:
+            print(reward)
         env.render()
-        sleep(1/45)
+        #sleep(1/66)
     env.reset()

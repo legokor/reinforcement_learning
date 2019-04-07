@@ -31,10 +31,10 @@ LOW_KICK, PUNCH, BLOCK, JUMP, SQUAT, MOVE_LEFT, MOVE_RIGHT, HIGH_KICK = 0, 1, 3,
 
 pushed_keys = list('000000000000') 
 keymap = {
-          key.W: PLAYER1+JUMP,
-          key.S: PLAYER1+SQUAT,
-          key.A: PLAYER1+MOVE_LEFT,
-          key.D: PLAYER1+MOVE_RIGHT,
+          #key.W: PLAYER1+JUMP,
+          #key.S: PLAYER1+SQUAT,
+          #key.A: PLAYER1+MOVE_LEFT,
+          #key.D: PLAYER1+MOVE_RIGHT,
           key.LEFT: PLAYER1+BLOCK,
           key.DOWN: PLAYER1+LOW_KICK,
           key.UP: PLAYER1+HIGH_KICK,
@@ -43,7 +43,8 @@ keymap = {
 
 def key_press(pressed_key, modifier):
     global pushed_keys
-    for key, position in keymap.items():
+    print(pressed_key)
+    for key, position in keymap.items():  
         if key == pressed_key:
             pushed_keys[position] = "1"
 
