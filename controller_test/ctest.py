@@ -1,4 +1,9 @@
 import pygame
+# pylint: disable=no-member
+pygame.init()
+
+print("Init finished")
+
 while True:
         # EVENT PROCESSING STEP
         for event in pygame.event.get(): # User did something
@@ -27,5 +32,6 @@ while True:
                     print("S")
                 if event.key == pygame.K_d:
                     print("D")
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_w:
                     print("W")
+# pylint: enable=no-member
