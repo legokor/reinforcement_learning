@@ -23,47 +23,55 @@ def get_keys(pushed_keys):
     PLAYER1 = 0
     LOW_KICK, PUNCH, BLOCK, JUMP, SQUAT, MOVE_LEFT, MOVE_RIGHT, HIGH_KICK = 0, 1, 3, 4, 5, 6, 7, 8 #rewrite these
 
-    buttons = controller.get_numbuttons()
+    #buttons = controller.get_numbuttons()
 
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN:
-
-            ###TEST###
-            print(str(event.button))
-
-            if event.button == buttons[0]:
+            if event.button == 0:
                 pushed_keys[PLAYER1+HIGH_KICK] = "1"
-            if event.button == buttons[1]:
+            if event.button == 2:
                 pushed_keys[PLAYER1+LOW_KICK] = "1"
-            if event.button == buttons[2]:
+            if event.button == 1:
                 pushed_keys[PLAYER1+PUNCH] = "1"                
-            if event.button == buttons[3]:
+            if event.button == 3:
                 pushed_keys[PLAYER1+BLOCK] = "1"
-            if event.button == buttons[4]:
-                pushed_keys[PLAYER1+MOVE_LEFT] = "1"
-            if event.buttons == buttons[5]:
-                pushed_keys[PLAYER1+SQUAT] = "1"
-            if event.buttons == buttons[6]:
-                pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
-            if event.buttons == buttons[7]:
-                pushed_keys[PLAYER1+JUMP] = "1"
         if event.type == pygame.JOYBUTTONUP:
-            if event.buttons == buttons[0]:
+            if event.button == 0:
                 pushed_keys[PLAYER1+HIGH_KICK] = "0"
-            if event.buttons == buttons[1]:
+            if event.button == 2:
                 pushed_keys[PLAYER1+LOW_KICK] = "0"
-            if event.buttons == buttons[2]:
+            if event.button == 1:
                 pushed_keys[PLAYER1+PUNCH] = "0"
-            if event.buttons == buttons[3]:
+            if event.button == 3:
                 pushed_keys[PLAYER1+BLOCK] = "0"
-            if event.buttons == buttons[4]:
-                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
-            if event.buttons == buttons[5]:
+
+        if event.type == pygame.JOYHATMOTION:
+            if event.value == (0,0):
                 pushed_keys[PLAYER1+SQUAT] = "0"
-            if event.buttons == buttons[6]:
-                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
-            if event.buttons == buttons[7]:
                 pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            if event.value == (1,0):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
+            if event.value == (-1,0):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "1"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            if event.value == (0,1):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "1"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            if event.value == (0,-1):
+                pushed_keys[PLAYER1+SQUAT] = "1"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            
     return pushed_keys
 # pylint: enable=no-member
 
