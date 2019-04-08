@@ -11,58 +11,49 @@ import pygame
 # pylint: disable=no-member
 pygame.init()
 screen = pygame.display.set_mode((1, 1))
-pygame.joystick.init()
-joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
-controller = joysticks[0]
-controller.init()
+
+pygame.display.iconify()
 # pylint: enable=no-member
 
 #Controller
 # pylint: disable=no-member
 def get_keys(pushed_keys):
     PLAYER1 = 0
-    LOW_KICK, PUNCH, BLOCK, JUMP, SQUAT, MOVE_LEFT, MOVE_RIGHT, HIGH_KICK = 0, 1, 3, 4, 5, 6, 7, 8 #rewrite these
-
-    buttons = controller.get_numbuttons()
-
+    LOW_KICK, PUNCH, BLOCK, JUMP, SQUAT, MOVE_LEFT, MOVE_RIGHT, HIGH_KICK = 0, 1, 3, 4, 5, 6, 7, 8
     for event in pygame.event.get():
-        if event.type == pygame.JOYBUTTONDOWN:
-
-            ###TEST###
-            print(str(event.button))
-
-            if event.button == buttons[0]:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
                 pushed_keys[PLAYER1+HIGH_KICK] = "1"
-            if event.button == buttons[1]:
+            if event.key == pygame.K_DOWN:
                 pushed_keys[PLAYER1+LOW_KICK] = "1"
-            if event.button == buttons[2]:
+            if event.key == pygame.K_RIGHT:
                 pushed_keys[PLAYER1+PUNCH] = "1"                
-            if event.button == buttons[3]:
+            if event.key == pygame.K_LEFT:
                 pushed_keys[PLAYER1+BLOCK] = "1"
-            if event.button == buttons[4]:
+            if event.key == pygame.K_a:
                 pushed_keys[PLAYER1+MOVE_LEFT] = "1"
-            if event.buttons == buttons[5]:
+            if event.key == pygame.K_s:
                 pushed_keys[PLAYER1+SQUAT] = "1"
-            if event.buttons == buttons[6]:
+            if event.key == pygame.K_d:
                 pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
-            if event.buttons == buttons[7]:
+            if event.key == pygame.K_w:
                 pushed_keys[PLAYER1+JUMP] = "1"
-        if event.type == pygame.JOYBUTTONUP:
-            if event.buttons == buttons[0]:
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_UP:
                 pushed_keys[PLAYER1+HIGH_KICK] = "0"
-            if event.buttons == buttons[1]:
+            if event.key == pygame.K_DOWN:
                 pushed_keys[PLAYER1+LOW_KICK] = "0"
-            if event.buttons == buttons[2]:
+            if event.key == pygame.K_RIGHT:
                 pushed_keys[PLAYER1+PUNCH] = "0"
-            if event.buttons == buttons[3]:
+            if event.key == pygame.K_LEFT:
                 pushed_keys[PLAYER1+BLOCK] = "0"
-            if event.buttons == buttons[4]:
+            if event.key == pygame.K_a:
                 pushed_keys[PLAYER1+MOVE_LEFT] = "0"
-            if event.buttons == buttons[5]:
+            if event.key == pygame.K_s:
                 pushed_keys[PLAYER1+SQUAT] = "0"
-            if event.buttons == buttons[6]:
+            if event.key == pygame.K_d:
                 pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
-            if event.buttons == buttons[7]:
+            if event.key == pygame.K_w:
                 pushed_keys[PLAYER1+JUMP] = "0"
     return pushed_keys
 # pylint: enable=no-member
