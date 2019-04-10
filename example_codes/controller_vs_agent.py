@@ -1,5 +1,4 @@
 import retro
-#from pyglet.window import key
 import numpy as np
 import random
 
@@ -8,20 +7,17 @@ from time import sleep
 
 import pygame
 
-# pylint: disable=no-member
 pygame.init()
 screen = pygame.display.set_mode((1, 1))
 pygame.joystick.init()
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 controller = joysticks[0]
 controller.init()
-# pylint: enable=no-member
 
 #Controller
-# pylint: disable=no-member
 def get_keys(pushed_keys):
     PLAYER1 = 0
-    LOW_KICK, PUNCH, BLOCK, JUMP, SQUAT, MOVE_LEFT, MOVE_RIGHT, HIGH_KICK = 0, 1, 3, 4, 5, 6, 7, 8 #rewrite these
+    LOW_KICK, PUNCH, BLOCK, JUMP, SQUAT, MOVE_LEFT, MOVE_RIGHT, HIGH_KICK = 0, 1, 3, 4, 5, 6, 7, 8
 
     #buttons = controller.get_numbuttons()
 
@@ -46,34 +42,55 @@ def get_keys(pushed_keys):
                 pushed_keys[PLAYER1+BLOCK] = "0"
 
         if event.type == pygame.JOYHATMOTION:
-            if event.value == (0,0):
-                pushed_keys[PLAYER1+SQUAT] = "0"
-                pushed_keys[PLAYER1+JUMP] = "0"
-                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
-                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
-            if event.value == (1,0):
-                pushed_keys[PLAYER1+SQUAT] = "0"
-                pushed_keys[PLAYER1+JUMP] = "0"
-                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
-                pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
             if event.value == (-1,0):
                 pushed_keys[PLAYER1+SQUAT] = "0"
                 pushed_keys[PLAYER1+JUMP] = "0"
                 pushed_keys[PLAYER1+MOVE_LEFT] = "1"
                 pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
-            if event.value == (0,1):
+            elif event.value == (-1,1):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "1"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "1"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            elif event.value == (-1,-1):
+                pushed_keys[PLAYER1+SQUAT] = "1"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "1"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            elif event.value == (0,0):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            elif event.value == (0,1):
                 pushed_keys[PLAYER1+SQUAT] = "0"
                 pushed_keys[PLAYER1+JUMP] = "1"
                 pushed_keys[PLAYER1+MOVE_LEFT] = "0"
                 pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
-            if event.value == (0,-1):
+            elif event.value == (0,-1):
                 pushed_keys[PLAYER1+SQUAT] = "1"
                 pushed_keys[PLAYER1+JUMP] = "0"
                 pushed_keys[PLAYER1+MOVE_LEFT] = "0"
                 pushed_keys[PLAYER1+MOVE_RIGHT] = "0"
+            elif event.value == (1,0):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
+            elif event.value == (1,1):
+                pushed_keys[PLAYER1+SQUAT] = "0"
+                pushed_keys[PLAYER1+JUMP] = "1"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
+            elif event.value == (1,-1):
+                pushed_keys[PLAYER1+SQUAT] = "1"
+                pushed_keys[PLAYER1+JUMP] = "0"
+                pushed_keys[PLAYER1+MOVE_LEFT] = "0"
+                pushed_keys[PLAYER1+MOVE_RIGHT] = "1"
+
+
             
     return pushed_keys
-# pylint: enable=no-member
 
 env_name = 'MortalKombatII-Genesis'
 state_name = 'AFK.SubZeroVsJax'
@@ -96,18 +113,19 @@ class Agent(object):
 
 pushed_keys = ["0","0","0","0","0","0","0","0","0","0","0","0"]
 
-state = env.reset()
+env.reset()
 env.render()
-#env.viewer.window.on_key_press = get_keys(pushed_keys)
-#env.viewer.window.on_key_release = get_keys(pushed_keys)
 agent = Agent(env.action_space)
 action = f'{0|2048:012b}'
-ob, reward, done, _ = env.step( action + "".join(pushed_keys) )
-while True:
+ob, reward, done, info = env.step( action + "".join(pushed_keys) )
+while(True):
     for i in range(100000):
         pushed_keys = get_keys(pushed_keys)
         action = agent.act(ob, reward, done)
-        ob, reward, done, _ = env.step("".join(pushed_keys) + action )
+        ob, reward, done, info = env.step("".join(pushed_keys) + action )
         env.render()
         sleep(1/90)
+        if(info['wins'] == 1 or info['enemy_rounds_won'] == 1 or info['rounds_won'] == 1 or done or i > 4000):
+            break;
     env.reset()
+        
