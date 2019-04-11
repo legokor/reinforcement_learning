@@ -1,6 +1,5 @@
 import retro
 import numpy as np
-import Agent
 
 from pathlib import Path
 from time import sleep
@@ -27,12 +26,12 @@ agent1 = Agent(env.action_space)
 agent2 = Agent(env.action_space)
 action1 = f'{0|2048:012b}'
 action2 = f'{0|2048:012b}'
-ob, reward, done, _ = env.step( action1 + action2 )
+ob, reward, done, info = env.step( action1 + action2 )
 while True:
     for i in range(100000):
         action1 = agent1.act(ob, reward, done)
         action2 = agent2.act(ob, reward, done)
-        ob, reward, done, _ = env.step( action1 + action2 )
+        ob, reward, done, info = env.step( action1 + action2 )
         env.render()
         sleep(1/45)
     env.reset()
