@@ -2,8 +2,8 @@
 # Controlls: MOVE: W A S D 
 #            HIT: right arrow
 #            BLOCK: left arrow
-#            KICK LOW: up arrow
-#            KICK HIGH: down arrow
+#            KICK LOW: down arrow
+#            KICK HIGH: up arrow
 #
 
 import retro
