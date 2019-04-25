@@ -8,6 +8,11 @@ $ pip3 install --user gym-retro
 $ python3 -m retro.import Mortal\ Kombat\ II\ \(World\).md
 ```
 
+# Run
+
+Run q_learing_single_process.py for training the model.
+Run human_vs_agent_with_model.py to fight against a bot using trained model.
+
 # Control
 
 ## Controller
