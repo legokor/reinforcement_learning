@@ -92,7 +92,7 @@ def run_simulation(agent1,agent2):
     while True:
         for i in range(100000):
             action1 = agent1.act(ob, reward, done,i)
-            action2 = agent2.act(ob, reward, done)
+            action2 = agent2.act(ob, reward, done,i)
             x = np.concatenate((action1,action2))
             #print(x)
 
@@ -113,7 +113,13 @@ def fitness_function(genome):
     agent = Daredevil(env.action_space)
     agent.genome = genome
     agent.genome2dna()
-    reward = run_simulation(agent,RandomAgent(env.action_space))
+    #enemy = RandomAgent(env.action_space)
+
+    enemy = Daredevil(env.action_space)
+    enemy.set_DNA_from_file("actualbest.txt")
+    enemy.dna2genome()
+
+    reward = run_simulation(agent,enemy)
     return reward
 
 #dd = Daredevil(env.action_space)
@@ -122,14 +128,14 @@ def fitness_function(genome):
 
 ########### GA ############
 
-population_size = 3
+population_size = 5
 #steps
 dna_length = 100
 genome_length = 12*dna_length
 ga = GeneticAlgorithm(fitness_function)
 ga.generate_binary_population(size=population_size, genome_length=genome_length)
 # How many pairs of individuals should be picked to mate
-ga.number_of_pairs = 1
+ga.number_of_pairs = 3
 # Selective pressure from interval [1.0, 2.0]
 # the lower value, the less will the fitness play role
 ga.selective_pressure = 1.5
@@ -139,7 +145,7 @@ ga.mutation_rate = 0.1
 ga.allow_random_parent = True # default True
 # Use single point crossover instead of uniform crossover
 ga.single_point_cross_over = False # default False
-ga.run(1)
+ga.run(10)
 
 best_genome, best_fitness = ga.get_best_genome()
 
