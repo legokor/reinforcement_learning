@@ -11,6 +11,15 @@ import datetime
 # Have to do: pip install https://github.com/chovanecm/python-genetic-algorithm/archive/master.zip#egg=mchgenalg
 from mchgenalg import GeneticAlgorithm
 
+
+# Hiperparameters
+
+#TEACHING = "SUBZERO"
+TEACHING = "JAX"
+DNAFILE = "actualbest.txt"
+
+
+
 env_name = 'MortalKombatII-Genesis'
 state_name = 'AFK.SubZeroVsJax'
 state_path = Path(f'../states/{state_name}.state').resolve()
@@ -116,15 +125,15 @@ def fitness_function(genome):
     #enemy = RandomAgent(env.action_space)
 
     enemy = Daredevil(env.action_space)
-    enemy.set_DNA_from_file("actualbest.txt")
+    enemy.set_DNA_from_file(DNAFILE)
     enemy.dna2genome()
 
-    reward = run_simulation(agent,enemy)
-    return reward
-
-#dd = Daredevil(env.action_space)
-#dd.set_DNA_from_file("dna0.txt")
-#run_simulation(dd,RandomAgent(env.action_space))
+    if TEACHING == "SUBZERO":
+        reward = run_simulation(agent,enemy)
+        return reward
+    else:
+        reward = run_simulation(enemy,agent)
+        return -reward
 
 ########### GA ############
 
