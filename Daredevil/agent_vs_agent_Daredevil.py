@@ -6,6 +6,8 @@ from pathlib import Path
 from time import sleep
 
 import datetime
+import os
+import numpy as np
 
 # IMPORTANT !!!
 # Have to do: pip install https://github.com/chovanecm/python-genetic-algorithm/archive/master.zip#egg=mchgenalg
@@ -17,8 +19,9 @@ from mchgenalg import GeneticAlgorithm
 #TEACHING = "SUBZERO"
 TEACHING = "JAX"
 DNAFILE = "actualbest.txt"
-
-
+CONTINUE = True
+SubZeroPopulationFolder = "subzeropop"
+JaxPopulationFolder = "jaxpop"
 
 env_name = 'MortalKombatII-Genesis'
 state_name = 'AFK.SubZeroVsJax'
@@ -53,7 +56,7 @@ class Daredevil(object):
         self.genome = []
         for gene in self.dna:
             for letter in gene:
-                if letter == 0:
+                if letter == '0':
                     self.genome.append(False)
                 else:
                     self.genome.append(True)
@@ -137,12 +140,39 @@ def fitness_function(genome):
 
 ########### GA ############
 
+def load(ga):
+    if TEACHING == "SUBZERO":
+        files = os.listdir(SubZeroPopulationFolder)
+        ga.population = []
+        for f in files:
+            dd = Daredevil(env.action_space)
+            dd.set_DNA_from_file(SubZeroPopulationFolder + "/" + f)
+            dd.dna2genome()
+            arr = np.array(dd.genome)
+            ga.population.append(arr)
+    else:
+        files = os.listdir(JaxPopulationFolder)
+        ga.population = []
+        for f in files:
+            dd = Daredevil(env.action_space)
+            dd.set_DNA_from_file(JaxPopulationFolder + "/" + f)
+            dd.dna2genome()
+            arr = np.array(dd.genome)
+            ga.population.append(arr)
+
+    
+        
+
 population_size = 5
 #steps
 dna_length = 100
 genome_length = 12*dna_length
 ga = GeneticAlgorithm(fitness_function)
-ga.generate_binary_population(size=population_size, genome_length=genome_length)
+if CONTINUE:
+    load(ga)
+    ga._update_fitness_vector()
+else:
+    ga.generate_binary_population(size=population_size, genome_length=genome_length)
 # How many pairs of individuals should be picked to mate
 ga.number_of_pairs = 3
 # Selective pressure from interval [1.0, 2.0]
@@ -154,7 +184,7 @@ ga.mutation_rate = 0.1
 ga.allow_random_parent = True # default True
 # Use single point crossover instead of uniform crossover
 ga.single_point_cross_over = False # default False
-ga.run(10)
+ga.run(20)
 
 best_genome, best_fitness = ga.get_best_genome()
 
