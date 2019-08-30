@@ -1,4 +1,4 @@
-# Reinforcement learning project 2018/2019/2
+# Retired Reinforcement learning project of 2018/2019/2
 
 ## Installation
 
