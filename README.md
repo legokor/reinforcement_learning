@@ -21,7 +21,7 @@ python -m retro.import Mortal\ Kombat\ II\ \(World\).md #Imports the game
 And that is all! At an expo, we usually run the agent_vs_keyboard_example.py. You must run it in the examples folder!
 
 ```sh
-cd examples/
+cd example_codes/
 python agent_vs_keyboard_example.py
 ```
 
